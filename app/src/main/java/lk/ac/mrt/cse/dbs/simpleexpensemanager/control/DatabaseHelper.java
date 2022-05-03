@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_AMOUNT = "amount";
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "190050K.db", null, 1);
@@ -58,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DATE, formatter.format(transaction.getDate()));
         cv.put(COLUMN_ACCOUNT_NO,transaction.getAccountNo());
         cv.put(COLUMN_EXPENSE_TYPE, String.valueOf(transaction.getExpenseType()));
-        cv.put(COLUMN_AMOUNT, transaction.getAmount());
+        cv.put(COLUMN_AMOUNT, df.format(transaction.getAmount()));
 
         long insert = db.insert(TRANSACTION_TABLE, null, cv);
 
@@ -76,7 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_ACCOUNT_NO, account.getAccountNo());
         cv.put(COLUMN_BANK_NAME, account.getBankName());
         cv.put(COLUMN_ACCOUNT_HOLDER_NAME, account.getAccountHolderName());
-        cv.put(COLUMN_BALANCE, account.getBalance());
+        cv.put(COLUMN_BALANCE, df.format(account.getBalance()));
 
         long insert = db.insert(ACCOUNT_TABLE, null,cv);
         if(insert==-1){
@@ -108,7 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 String accountNo = cursor.getString(2);
                 ExpenseType expenseType = ExpenseType.valueOf(cursor.getString(3));
-                double amount = cursor.getDouble(4);
+                double amount = Double.parseDouble(df.format(cursor.getDouble(4)));
                 Transaction newTransaction = new Transaction(date, accountNo, expenseType, amount);
                 transactionsList.add(newTransaction);
 
@@ -138,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String accountNo = cursor.getString(0);
                 String bankName = cursor.getString(1);
                 String accountHolderName = cursor.getString(2);
-                Double balance = cursor.getDouble(3);
+                Double balance = Double.valueOf(df.format(cursor.getDouble(3)));
 
                 Account newAccount = new Account(accountNo, bankName, accountHolderName, balance);
                 accountsList.put(accountNo, newAccount);
@@ -169,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean updateBalance(Account account){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE "+ACCOUNT_TABLE+" SET "+COLUMN_BALANCE+" = "+account.getBalance()+" WHERE "+COLUMN_ACCOUNT_NO+" = "+account.getAccountNo();
+        String query = "UPDATE "+ACCOUNT_TABLE+" SET "+COLUMN_BALANCE+" = "+account.getBalance()+" WHERE "+COLUMN_ACCOUNT_NO+" = '"+account.getAccountNo()+"'";
         Cursor cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()){

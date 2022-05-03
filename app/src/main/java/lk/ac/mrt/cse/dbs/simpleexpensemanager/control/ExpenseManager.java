@@ -25,8 +25,6 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerEx
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentAccountDAO;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.PersistentTransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
@@ -36,9 +34,8 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
  * method to setup the DAO objects depending on the implementation.
  */
 public abstract class ExpenseManager implements Serializable {
-    private AccountDAO accountsHolder;
-
-    private TransactionDAO transactionsHolder;
+    private transient AccountDAO accountsHolder;
+    private transient TransactionDAO transactionsHolder;
 
     /***
      * Get list of account numbers as String.
