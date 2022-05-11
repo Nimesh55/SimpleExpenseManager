@@ -25,7 +25,9 @@ import androidx.test.core.app.ApplicationProvider;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +64,9 @@ public class ApplicationTest {
     @Test
     public void testLogTransaction() {
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = Calendar.getInstance().getTime();
+        String dateStrIn = dateFormat.format(date);
         Transaction transaction = new Transaction(date ,"123test", ExpenseType.EXPENSE, Double.parseDouble(new DecimalFormat("0.00").format(1200)));
         dbHelper.addTransaction(transaction);
 
@@ -70,7 +74,9 @@ public class ApplicationTest {
         Boolean found = false;
 
         for (Transaction trans: transactions) {
-            if(trans.getAccountNo().equals("123test")){
+
+            String strDate = dateFormat.format(trans.getDate());
+            if(trans.getAccountNo().equals("123test") && strDate.equals("2022-01-02")){
                 found = true;
                 break;
             }
