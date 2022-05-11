@@ -76,7 +76,7 @@ public class ApplicationTest {
         for (Transaction trans: transactions) {
 
             String strDate = dateFormat.format(trans.getDate());
-            if(trans.getAccountNo().equals("123test") && strDate.equals("2022-01-02")){
+            if(trans.getAccountNo().equals("123test") && strDate.equals(dateStrIn)){
                 found = true;
                 break;
             }
