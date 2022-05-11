@@ -16,26 +16,21 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager;
 
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.test.core.app.ApplicationProvider;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 
-import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.DatabaseHelper;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
-import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -55,7 +50,7 @@ public class ApplicationTest {
     public void testAddAccount() {
         expenseManager.addAccount("123test", "ABC","HolderTest", 15000);
         List<String> accountHolders = expenseManager.getAccountNumbersList();
-        assertTrue(accountHolders.contains("123tes"));
+        assertTrue(false);
     }
 
 
