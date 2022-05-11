@@ -16,14 +16,67 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.content.Context;
+import android.widget.Toast;
+
+import androidx.test.core.app.ApplicationProvider;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.DatabaseHelper;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class ApplicationTest {
+    private ExpenseManager expenseManager;
+    private DatabaseHelper dbHelper;
+
+    @Before
+    public void setup() throws ExpenseManagerException {
+        Context context = ApplicationProvider.getApplicationContext();
+        expenseManager = new PersistentExpenseManager(context);
+        dbHelper = new DatabaseHelper(context);
     }
+
+    @Test
+    public void testAddAccount() {
+        expenseManager.addAccount("123test", "ABC","HolderTest", 15000);
+        List<String> accountHolders = expenseManager.getAccountNumbersList();
+        assertTrue(accountHolders.contains("123tes"));
+    }
+
+
+//    @Test
+//    public void testLogTransaction() {
+//
+//        Date date = Calendar.getInstance().getTime();
+//        Transaction transaction = new Transaction(date ,"123test", ExpenseType.EXPENSE, Double.parseDouble(new DecimalFormat("0.00").format(1200)));
+//        dbHelper.addTransaction(transaction);
+//
+//        List<Transaction> transactions = dbHelper.getAllTransactionLogs();
+//        Boolean found = false;
+//
+//        for (Transaction trans: transactions) {
+//            if(trans.getAccountNo()=="123test" && trans.getDate() == date){
+//                found = true;
+//                break;
+//            }
+//        }
+//
+//        assertTrue(found);
+//    }
+
 }
