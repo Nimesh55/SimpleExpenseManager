@@ -29,9 +29,9 @@ public class PersistentTransactionDAO implements TransactionDAO {
 
         if(dbHelper.addTransaction(transaction)){
             transactions.add(transaction);
-            Toast.makeText(this.context,"Transaction added successfully", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Transaction added successfully", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this.context,"Error occur when adding transaction", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Error occur when adding transaction", Toast.LENGTH_SHORT).show();
         }
 
     }

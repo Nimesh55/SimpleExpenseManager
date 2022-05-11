@@ -43,9 +43,9 @@ public class PersistentAccountDAO implements AccountDAO {
     public void addAccount(Account account) {
         if(dbHelper.addAccount(account)){
             accounts.put(account.getAccountNo(), account);
-            Toast.makeText(this.context,"Account added successfully", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Account added successfully", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(this.context,"Error occur when adding account", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Error occur when adding account", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -57,9 +57,9 @@ public class PersistentAccountDAO implements AccountDAO {
         }
         if(dbHelper.removeAccount(accountNo)){
             accounts.remove(accountNo);
-            Toast.makeText(this.context,"Account removed successfully", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Account removed successfully", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this.context,"Error occur when removing account", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this.context,"Error occur when removing account", Toast.LENGTH_SHORT).show();
         }
 
     }
